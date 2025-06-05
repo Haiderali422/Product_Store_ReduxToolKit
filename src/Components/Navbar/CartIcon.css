@@ -1,0 +1,15 @@
+.cart-icon-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}

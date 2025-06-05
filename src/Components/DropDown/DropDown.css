@@ -1,0 +1,27 @@
+select {
+    padding: 10px 15px;
+    margin: 55px 10px ;
+    font-size: 16px;
+    border-radius: 12px;
+    background-color: #4CAF50;
+    outline: none;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+
+select:focus {
+    border-color: dimgrey;
+
+}
+
+select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+}
+select option:hover {
+    background-color:#4CAF50 ;
+    color: white;
+}

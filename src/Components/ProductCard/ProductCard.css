@@ -1,0 +1,58 @@
+.product-card {
+    display: inline-block;
+    width: 300px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 20px;
+    transition: 0.3s;
+}
+.product-image {
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+}
+.product-info {
+    padding: 16px;
+}
+.product-info h3,
+.product-info h4,
+.product-info h5,
+.product-info p {
+    margin: 6px 0;
+}
+
+.discount {
+    color: green;
+}
+
+.description {
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.see-more {
+    color: #007bff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.card-buttons {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #007BFF;
+}
