@@ -6,8 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 const DropDown = () => {
   const dispatch = useDispatch();
-  const selectedCategory = useSelector(state => state.cart.selectedCategory);
-    const categories = useSelector(state => state.cart.categories);
+  const {selectedCategory , categories} = useSelector(state => state.cart);
+
     return (
         <>
 

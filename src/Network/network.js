@@ -1,8 +1,8 @@
 
 import axios from "axios";
 
-const Product_URL = import.meta.env.VITE_API_PRODUCT_URL;
-const Category_URL = import.meta.env.VITE_API_CATEGORY_URL;
+const Product_URL = import.meta.env.VITE_REACT_API_PRODUCT_URL;
+const Category_URL = import.meta.env.VITE_REACT_API_CATEGORY_URL;
 
 export  const FetchCategory  = async () => {
     const response = await axios.get(`${Category_URL}`)

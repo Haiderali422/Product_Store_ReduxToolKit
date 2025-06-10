@@ -6,7 +6,7 @@ import './Navbar.css';
 const Navbar = () => {
     return (
         <nav className="navbar">
-           <Link to={"/"} className="logo"> <h3>Fake API Store</h3></Link>
+           <Link to={"/"} className="logo"> <h3>Product Store</h3></Link>
             <ul className="navbar-nav">
                 <li className="nav-item">
                     <NavLink

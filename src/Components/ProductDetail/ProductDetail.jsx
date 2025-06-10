@@ -5,38 +5,36 @@ import placeholder from "../../assets/placeholder.png";
 import Button from "../Button/Button";
 import Loader from "../Loader/Loader";
 import {FetchSingleProduct} from "../../Network/network.js"
-import {
-    ADD_TO_CART,
-    DECREMENT_QUANTITY,
-    INCREMENT_QUANTITY,
-    SET_SINGLE_PRODUCT,
-    SET_LOADING, REMOVE_FROM_CART,
-} from "../../features/cartSlice.js";
+import * as action from "../../features/cartSlice.js";
 import {useDispatch, useSelector} from "react-redux";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector(state => state.cart.isLoading);
-    const products = useSelector(state => state.cart.products);
-    const items = useSelector(state => state.cart.items);
+    const {isLoading , products , items} = useSelector(state => state.cart);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchProduct = async () => {
-            dispatch(SET_LOADING(true));
+            dispatch(action.SET_LOADING(true));
 
             try {
                 const res = FetchSingleProduct(id)
-                dispatch( SET_SINGLE_PRODUCT( res.product));
+                dispatch( action.SET_SINGLE_PRODUCT( res.product));
             } catch (error) {
                 console.error('Error fetching product:', error);
             } finally {
-                dispatch(SET_LOADING(false));
+                dispatch(action.SET_LOADING(false));
             }
         };
 
         fetchProduct();
     }, [id, dispatch]);
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, []);
 
     if (isLoading) return <Loader />;
 
@@ -81,19 +79,19 @@ const ProductDetail = () => {
                         <div className="product-action-buttons">
                             <Button
                                 text="-"
-                                onClick={() => dispatch( DECREMENT_QUANTITY( product.id))}
+                                onClick={() => dispatch( action.DECREMENT_QUANTITY( product.id))}
                             />
-                            {items.length > 0 ?  <Button text='🗑️Remove' onClick={() => dispatch( REMOVE_FROM_CART( product.id ))} />
+                            {items.length > 0 ?  <Button text='🗑️Remove' onClick={() => dispatch( action.REMOVE_FROM_CART( product.id ))} />
                                 :    <Button
                                     text="🛒 Add to cart"
-                                    onClick={() => dispatch( ADD_TO_CART(product ))}
+                                    onClick={() => dispatch( action.ADD_TO_CART(product ))}
                                 />
 
                             }
 
                             <Button
                                 text="+"
-                                onClick={() => dispatch(INCREMENT_QUANTITY(product.id) )}
+                                onClick={() => dispatch(action.INCREMENT_QUANTITY(product.id) )}
                             />
                         </div>
                     </div>

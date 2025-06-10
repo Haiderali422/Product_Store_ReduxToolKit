@@ -5,24 +5,20 @@ import ProductCard from "../../Components/ProductCard/ProductCard";
 import Loader from "../../Components/Loader/Loader";
 import DropDown from "../../Components/DropDown/DropDown";
 import {useDispatch, useSelector} from "react-redux";
-import {ERROR, FETCH_CATEGORIES, LOADING, SET_PRODUCTS, SET_CURRENT_DATA, SET_PAGE} from "../../features/cartSlice.js";
+import * as action from "../../features/cartSlice.js";
 import {FetchCategory, FetchProduct, SelectedCategory} from "../../Network/network.js";
 
 
 
 const Home = () => {
     const dispatch = useDispatch();
-    const products = useSelector(state => state.cart.products);
-    const selectedCategory = useSelector(state => state.cart.selectedCategory);
-    const isLoading = useSelector(state => state.cart.isLoading);
-    const limit = useSelector(state => state.cart.limit);
-    const page = useSelector(state => state.cart.page);
-    const currentData = useSelector(state => state.cart.currentData);
-
+    const state = useSelector(state => state.cart);
+    const {products = [] , selectedCategory = [] , isLoading , limit
+        , page , currentData = []} = state;
 
     useEffect(() => {
         const fetchData = async () => {
-            dispatch(LOADING());
+            dispatch(action.LOADING());
             try {
                 const categoryData = await FetchCategory();
 
@@ -32,16 +28,16 @@ const Home = () => {
                 } else {
                     productData = await SelectedCategory(selectedCategory);
                 }
-                dispatch(FETCH_CATEGORIES(categoryData.categories));
-                dispatch(SET_PRODUCTS(productData.products));
+                dispatch(action.FETCH_CATEGORIES(categoryData.categories));
+                dispatch(action.SET_PRODUCTS(productData.products));
 
                 const productsArray = productData.products;
                 const start = (page - 1) * limit;
                 const end = start + limit;
                 const paginatedData = productsArray.slice(start, end);
-                dispatch(SET_CURRENT_DATA(paginatedData));
+                dispatch(action.SET_CURRENT_DATA(paginatedData));
             } catch (err) {
-                dispatch(ERROR());
+                dispatch(action.ERROR());
                 console.error("Error fetching data:", err);
             }
         };
@@ -58,7 +54,7 @@ const Home = () => {
     const prevCategory = useRef(selectedCategory);
     useEffect(() => {
         if (prevCategory.current !== selectedCategory) {
-            dispatch(SET_PAGE(1))
+            dispatch(action.SET_PAGE(1))
             prevCategory.current = selectedCategory;
         }
     }, [selectedCategory , dispatch ]);
@@ -85,7 +81,7 @@ const Home = () => {
 
             <Pagination
                 currentPage={page}
-                setCurrentPage={(p) => dispatch(SET_PAGE(p))}
+                setCurrentPage={(p) => dispatch(action.SET_PAGE(p))}
                 totalItems={products.length}
                 itemsPerPage={limit}
             />
